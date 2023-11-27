@@ -112,7 +112,7 @@ stages:
         archiveFile: '$(Build.BuildId)-api.zip'
         
     - task: PublishPipelineArtifact@1
-      displayName: Publish pakacge
+      displayName: Publish package
       inputs: 
         targetPath: '$(Build.BuildId)-api.zip'
         artifact: drop-api
@@ -151,7 +151,7 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: 'UdacityProject3'     # ToDo
-              appName: 'Uda-fakeapi-11272023'               # ToDo
+              appName: 'udacity-project3-AppService'               # ToDo
               appType: webApp
               package: $(Pipeline.Workspace)/drop-api/$(Build.BuildId)-api.zip       # ToDo: Use the published zip artifact. 
           # #--------------------------------------------#    
