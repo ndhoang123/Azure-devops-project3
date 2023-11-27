@@ -150,7 +150,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: 'AETeamSN'     # ToDo
+              azureSubscription: 'UdacityProject3'     # ToDo
               appName: 'Uda-fakeapi-11272023'               # ToDo
               appType: webApp
               package: $(Pipeline.Workspace)/drop-api/$(Build.BuildId)-api.zip       # ToDo: Use the published zip artifact. 
