@@ -16,6 +16,7 @@ variables:
   projectRoot: $(System.DefaultWorkingDirectory)
   # Environment name
   environmentName: 'test'
+  group: 'ssh-configuration'
 
 stages:
     #--------------------------------------------#  
