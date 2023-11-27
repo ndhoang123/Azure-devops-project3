@@ -142,7 +142,7 @@ stages:
   - deployment: FakeRestAPI
     pool:
       vmImage: 'Ubuntu-20.04'      
-    environment: 'test'   # ToDo
+    environment: 'myLinux'   # ToDo
     strategy:
       runOnce:
         deploy:
