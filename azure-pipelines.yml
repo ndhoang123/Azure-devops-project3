@@ -152,7 +152,7 @@ stages:
               azureSubscription: 'UdacityProject3'     # ToDo
               appName: 'udacity-project3-AppService'               # ToDo
               appType: webApp
-              package: $(Pipeline.Workspace)/drop-api/$(Build.BuildId)-api.zip       # ToDo: Use the published zip artifact. 
+              package: '$(Pipeline.Workspace)/drop-api/$(Build.BuildId)-api.zip'       # ToDo: Use the published zip artifact. 
               deploymentMethod: 'auto'
               # #--------------------------------------------#    
           # # Run JMeter test suite against the App Service
