@@ -150,7 +150,7 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: 'UdacityProject3'     # ToDo
-              appName: 'udacity-project3-AppService'               # ToDo
+              appName: 'Uda-project3-windows'               # ToDo
               appType: webApp
               package: '$(Pipeline.Workspace)/drop-api/$(Build.BuildId)-api.zip'       # ToDo: Use the published zip artifact. 
               deploymentMethod: auto
