@@ -103,19 +103,21 @@ stages:
         script: |        
           sudo apt-get -y install zip
         workingDirectory: '$(System.DefaultWorkingDirectory)'
+
     - task: ArchiveFiles@2
       displayName: Archive API
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
-        includeRootFolder: true
+        includeRootFolder: false
         archiveType: 'zip'
-        archiveFile: '$(Build.BuildId)-api.zip'
+        archiveFile: '$(Build.BuildId)-fakerestapi.zip'
         
     - task: PublishPipelineArtifact@1
       displayName: Publish package
       inputs: 
-        targetPath: '$(Build.BuildId)-api.zip'
-        artifact: drop-api
+        targetPath: '$(Build.BuildId)-fakerestapi.zip'
+        artifact: drop-fakerestapi
+    
     #--------------------------------------------#
     # Selenium (UI) Test Suite - Archive the package  
     # "ArchiveFiles@2" picks up the web package and archives it.
@@ -126,6 +128,7 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.BuildId)-uitests.zip'
+    
     # Selenium Test Suite - Publish the package  
     - publish: $(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
       displayName: 'Upload Selenium Package'
@@ -140,7 +143,8 @@ stages:
   # Deploy FakeRestAPI Web App
   # ToDo: Provide <environment name> you created in your DevOps project
   - deployment: FakeRestAPI
-    pool: Default
+    pool:
+      vmImage: 'Ubuntu-20.04'
     environment: 'myLinux'   # ToDo
     strategy:
       runOnce:
@@ -152,7 +156,7 @@ stages:
               azureSubscription: 'UdacityProject3'     # ToDo
               appName: 'udacity-project3-AppService'               # ToDo
               appType: webApp
-              package: '$(Pipeline.Workspace)/drop-api/$(Build.BuildId)-api.zip'       # ToDo: Use the published zip artifact. 
+              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'       # ToDo: Use the published zip artifact. 
               deploymentMethod: 'auto'
               # #--------------------------------------------#    
           # # Run JMeter test suite against the App Service
