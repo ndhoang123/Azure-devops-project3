@@ -106,7 +106,7 @@ stages:
         displayName: 'Verify the installation'
       - script: |
           ls
-          cd ~/work/1/s/fakerestapi/FakeRESTApi.Web
+          cd fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
           ls /bin/release/net6.0
           echo "Build done"
