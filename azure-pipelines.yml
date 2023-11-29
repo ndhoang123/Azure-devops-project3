@@ -94,7 +94,7 @@ stages:
     jobs:
     - job: Build
       pool:
-          name: Azure Pipelines
+          name: Default
       steps:
       - script: |
           wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb
