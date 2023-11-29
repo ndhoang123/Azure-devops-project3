@@ -108,7 +108,7 @@ stages:
           ls
           cd fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
-          ls /bin/release/net6.0
+          ls
           echo "Build done"
         displayName: 'Build .NET project'
   #     - task: ArchiveFiles@2
