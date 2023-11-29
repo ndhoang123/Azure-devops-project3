@@ -107,7 +107,7 @@ stages:
       - script: |
           pwd
           cd ~/work/1/s/fakerestapi/FakeRESTApi.Web && \
-          dotnet build --configuration release && \
+          dotnet build --configuration build && \
           ls /bin/release/net6.0 && \
           echo "Build done"
         displayName: 'Build .NET project'
