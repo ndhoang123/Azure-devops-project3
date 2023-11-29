@@ -114,7 +114,8 @@ stages:
           ls && \
           ls /bin/release/net6.0 && \
           echo "Build done"
-          ls $(System.DefaultWorkingDirectory) && \
+          cd $(System.DefaultWorkingDirectory) && \
+          ls && \
         displayName: 'Build .NET project'
   #     - task: ArchiveFiles@2
   #       displayName: Archive FakeRestAPI
