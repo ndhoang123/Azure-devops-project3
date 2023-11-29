@@ -105,7 +105,6 @@ stages:
       - script: dotnet --version 
         displayName: 'Verify the installation'
       - script: |
-          cd ~/work/1/s
           ls
           cd ~/work/1/s/fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
