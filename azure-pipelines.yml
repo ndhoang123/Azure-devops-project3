@@ -105,6 +105,8 @@ stages:
       - script: dotnet --version 
         displayName: 'Verify the installation'
       - script: |
+          echo "Build done"
+          pwd
           ls
           cd fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
