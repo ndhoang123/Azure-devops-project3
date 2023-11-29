@@ -110,6 +110,8 @@ stages:
           dotnet build --configuration release && \
           ls && \
           pwd
+          cd /bin && \
+          ls && \
           ls /bin/release/net6.0 && \
           echo "Build done"
         displayName: 'Build .NET project'
