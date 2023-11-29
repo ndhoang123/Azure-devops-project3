@@ -106,8 +106,8 @@ stages:
         displayName: 'Verify the installation'
       - script: |
           cd ~/work/1/s && \
-          ls
-          cd ~/work/1/s/fakerestapi/FakeRESTApi.Web && \
+          ls && \
+          cd fakerestapi/FakeRESTApi.Web && \
           dotnet build --configuration release --output ./ && \
           echo "Build done"
         displayName: 'Build .NET project'
