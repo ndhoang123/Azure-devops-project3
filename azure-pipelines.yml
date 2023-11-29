@@ -105,71 +105,73 @@ stages:
       - script: dotnet --version 
         displayName: 'Verify the installation'
       - script: |
+          cd ~/work/1/s
+          ls
           cd ~/work/1/s/fakerestapi/FakeRESTApi.Web
           dotnet build --configuration release
           ls /bin/release/net6.0
           echo "Build done"
         displayName: 'Build .NET project'
-      - task: ArchiveFiles@2
-        displayName: Archive FakeRestAPI
-        inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web/bin/release/net6.0'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(Build.BuildId)-fakerestapi.zip'
-      - task: PublishPipelineArtifact@1
-        displayName: Upload package
-        inputs:   
-          targetPath: $(Build.BuildId)-fakerestapi.zip
-          artifact: drop-fakerestapi
+  #     - task: ArchiveFiles@2
+  #       displayName: Archive FakeRestAPI
+  #       inputs:
+  #         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web/bin/release/net6.0'
+  #         includeRootFolder: false
+  #         archiveType: 'zip'
+  #         archiveFile: '$(Build.BuildId)-fakerestapi.zip'
+  #     - task: PublishPipelineArtifact@1
+  #       displayName: Upload package
+  #       inputs:   
+  #         targetPath: $(Build.BuildId)-fakerestapi.zip
+  #         artifact: drop-fakerestapi
 
-      - task: ArchiveFiles@2
-        displayName: Archive Selenium
-        inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(Build.BuildId)-selenium.zip'
-          replaceExistingArchive: true
+  #     - task: ArchiveFiles@2
+  #       displayName: Archive Selenium
+  #       inputs:
+  #         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+  #         includeRootFolder: false
+  #         archiveType: 'zip'
+  #         archiveFile: '$(Build.BuildId)-selenium.zip'
+  #         replaceExistingArchive: true
         
-      - task: PublishPipelineArtifact@1
-        displayName: Upload Selenium
-        inputs:
-         targetPath: $(Build.BuildId)-selenium.zip
-         artifact: drop-selenium
+  #     - task: PublishPipelineArtifact@1
+  #       displayName: Upload Selenium
+  #       inputs:
+  #        targetPath: $(Build.BuildId)-selenium.zip
+  #        artifact: drop-selenium
 
-  #--------------------------------------------#  
-  # DEPLOYMENT STAGE
-  #--------------------------------------------#    
-  - stage: Deploy
-    jobs:
-    #--------------------------------------------#  
-    # Deploy FakeRestAPI Web App
-    # ToDo: Provide <environment name> you created in your DevOps project
-    - deployment: FakeRestAPI
-      pool: Default
-      environment: 'myLinux'   # ToDo
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - task: AzureWebApp@1
-              displayName: 'Deploy Azure Web App'
-              inputs:
-                azureSubscription: 'UdacityProject3'     # ToDo
-                appName: 'Uda-project3-windows'               # ToDo
-                appType: webApp
-                package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-                deploymentMethod: auto
-                # #--------------------------------------------#    
-            # # Run JMeter test suite against the App Service
-            # - task: CmdLine@2
-            #   inputs:
-            #     script: |
-            #       wget "https://apache.mirrors.lucidnetworks.net//jmeter/binaries/apache-jmeter-5.2.1.tgz"
-            #       tar -xf apache-jmeter-5.2.1.tgz
-            #       unzip -o $(Build.BuildId)-perftests.zip
-            #       ./apache-jmeter-5.2.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
-            #       cat jmeter.log                                                                           # ToDo: Write your commands
-            #     workingDirectory: $(Pipeline.Workspace)/drop-api            # ToDo: Use the artifact name from the task above
+  # #--------------------------------------------#  
+  # # DEPLOYMENT STAGE
+  # #--------------------------------------------#    
+  # - stage: Deploy
+  #   jobs:
+  #   #--------------------------------------------#  
+  #   # Deploy FakeRestAPI Web App
+  #   # ToDo: Provide <environment name> you created in your DevOps project
+  #   - deployment: FakeRestAPI
+  #     pool: Default
+  #     environment: 'myLinux'   # ToDo
+  #     strategy:
+  #       runOnce:
+  #         deploy:
+  #           steps:
+  #           - task: AzureWebApp@1
+  #             displayName: 'Deploy Azure Web App'
+  #             inputs:
+  #               azureSubscription: 'UdacityProject3'     # ToDo
+  #               appName: 'Uda-project3-windows'               # ToDo
+  #               appType: webApp
+  #               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+  #               deploymentMethod: auto
+  #               # #--------------------------------------------#    
+  #           # # Run JMeter test suite against the App Service
+  #           # - task: CmdLine@2
+  #           #   inputs:
+  #           #     script: |
+  #           #       wget "https://apache.mirrors.lucidnetworks.net//jmeter/binaries/apache-jmeter-5.2.1.tgz"
+  #           #       tar -xf apache-jmeter-5.2.1.tgz
+  #           #       unzip -o $(Build.BuildId)-perftests.zip
+  #           #       ./apache-jmeter-5.2.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
+  #           #       cat jmeter.log                                                                           # ToDo: Write your commands
+  #           #     workingDirectory: $(Pipeline.Workspace)/drop-api            # ToDo: Use the artifact name from the task above
   
