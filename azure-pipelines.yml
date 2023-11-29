@@ -108,6 +108,8 @@ stages:
           pwd
           cd fakerestapi/FakeRESTApi.Web && \
           dotnet build --configuration release && \
+          ls && \
+          pwd
           ls /bin/release/net6.0 && \
           echo "Build done"
         displayName: 'Build .NET project'
