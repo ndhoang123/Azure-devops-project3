@@ -105,12 +105,10 @@ stages:
       - script: dotnet --version 
         displayName: 'Verify the installation'
       - script: |
-          echo "Build done"
-          pwd
+          cd ~/work/1/s
           ls
-          cd fakerestapi/FakeRESTApi.Web
-          dotnet build --configuration release
-          ls /bin
+          cd ~/work/1/s/fakerestapi/FakeRESTApi.Web
+          dotnet build --configuration release --output ./
           echo "Build done"
         displayName: 'Build .NET project'
   #     - task: ArchiveFiles@2
