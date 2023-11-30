@@ -15,7 +15,7 @@ variables:
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
   # Environment name
-  environmentName: 'test'
+  environmentName: 'myLinux'
   group: 'ssh-configuration'
   buildConfiguration: 'Release'
 
