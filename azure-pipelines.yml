@@ -107,7 +107,7 @@ stages:
         displayName: 'Verify the installation'
       - script: |
           pwd
-          cd fakerestapi/FakeRESTApi.Web && \
+          cd fakerestapi && \
           dotnet build --configuration $(buildConfiguration) && \
         displayName: 'Build .NET project'
       - task: DotNetCoreCLI@2
