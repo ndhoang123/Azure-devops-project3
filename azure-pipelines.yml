@@ -154,7 +154,7 @@ stages:
     displayName: Test
     jobs:
     - job: TestPostman
-      pool: Default
+      pool: UdaProject3
       steps:
       # Postman - Install Newman    
       # ToDo: Update the command and verify the working directory
@@ -198,7 +198,7 @@ stages:
     #   # ToDo: Complete the ArchiveFiles@2 task and publish step 
     - job: PerformmanceTest
       dependsOn: TestPostman
-      pool: Default
+      pool: UdaProject3
       steps:    
       - task: Bash@3
         displayName: 'Install JMeter'
