@@ -107,13 +107,14 @@ stages:
         displayName: 'Verify the installation'
       - script: |
           pwd
-          cd fakerestapi && \
-          dotnet build --configuration $(buildConfiguration) && \
+          cd fakerestapi/FakeRESTApi.Web && \
+          pwd
+          dotnet build --configuration Release && \
         displayName: 'Build .NET project'
       - task: DotNetCoreCLI@2
         inputs:
           command: 'publish'
-          arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/Output'
+          arguments: '--configuration Release -o $(Build.ArtifactStagingDirectory)/Output'
           publishWebProjects: true
       # - task: ArchiveFiles@2
       #   displayName: Archive FakeRestAPI
