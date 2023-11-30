@@ -17,6 +17,7 @@ variables:
   # Environment name
   environmentName: 'test'
   group: 'ssh-configuration'
+  buildConfiguration: 'Release'
 
 stages:
     #--------------------------------------------#  
@@ -107,23 +108,20 @@ stages:
       - script: |
           pwd
           cd fakerestapi/FakeRESTApi.Web && \
-          dotnet build --configuration release && \
-          ls && \
-          pwd
-          cd /bin && \
-          ls && \
-          ls /bin/release/net6.0 && \
-          echo "Build done"
-          cd $(System.DefaultWorkingDirectory) && \
-          ls && \
+          dotnet build --configuration $(buildConfiguration) && \
         displayName: 'Build .NET project'
-  #     - task: ArchiveFiles@2
-  #       displayName: Archive FakeRestAPI
-  #       inputs:
-  #         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web/bin/release/net6.0'
-  #         includeRootFolder: false
-  #         archiveType: 'zip'
-  #         archiveFile: '$(Build.BuildId)-fakerestapi.zip'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/Output'
+          publishWebProjects: true
+      # - task: ArchiveFiles@2
+      #   displayName: Archive FakeRestAPI
+      #   inputs:
+      #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi/FakeRESTApi.Web/bin/release/net6.0'
+      #     includeRootFolder: false
+      #     archiveType: 'zip'
+      #     archiveFile: '$(Build.BuildId)-fakerestapi.zip'
   #     - task: PublishPipelineArtifact@1
   #       displayName: Upload package
   #       inputs:   
