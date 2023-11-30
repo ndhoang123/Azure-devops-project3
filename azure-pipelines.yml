@@ -109,12 +109,12 @@ stages:
           pwd
           cd fakerestapi/FakeRESTApi.Web && \
           pwd
-          dotnet build --configuration Release && \
+          dotnet build --configuration release && \
         displayName: 'Build .NET project'
       - task: DotNetCoreCLI@2
         inputs:
           command: 'publish'
-          arguments: '--configuration Release -o $(Build.ArtifactStagingDirectory)/Output'
+          arguments: '--configuration release -o $(Build.ArtifactStagingDirectory)/Output'
           publishWebProjects: true
       # - task: ArchiveFiles@2
       #   displayName: Archive FakeRestAPI
