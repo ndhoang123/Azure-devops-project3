@@ -1,0 +1,30 @@
+1701341297881,2321,Get All Books,200,OK,EnduranceTest 1-1,text,true,,903553,213,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books,759,0,299
+1701341298371,2156,Get All Books,200,OK,EnduranceTest 1-2,text,true,,919919,213,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books,635,0,255
+1701341300203,350,Get Book,200,OK,EnduranceTest 1-1,text,true,,5372,215,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books/1,350,0,0
+1701341300527,340,Get Book,200,OK,EnduranceTest 1-2,text,true,,5702,215,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books/2,340,0,0
+1701341300553,317,Post Book,200,OK,EnduranceTest 1-1,text,true,,262,363,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books,317,0,0
+1701341300867,259,Post Book,200,OK,EnduranceTest 1-2,text,true,,262,363,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books,259,0,0
+1701341300871,262,PUT Book,200,OK,EnduranceTest 1-1,text,true,,262,364,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books/2,262,0,0
+1701341301126,262,PUT Book,200,OK,EnduranceTest 1-2,text,true,,262,364,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books/3,262,0,0
+1701341301133,262,Delete Book,200,OK,EnduranceTest 1-1,,true,,211,246,2,2,http://udacity-project3-appservice.azurewebsites.net/api/Books/1?id=2,262,0,0
+1701341301388,258,Delete Book,200,OK,EnduranceTest 1-2,,true,,211,246,1,1,http://udacity-project3-appservice.azurewebsites.net/api/Books/2?id=3,258,0,0
+1701341580033,2286,Get All Books,200,OK,StressTest 2-1,text,true,,876620,213,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,726,0,261
+1701341580033,2371,Get All Books,200,OK,EnduranceTest 1-1,text,true,,904885,213,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,829,0,300
+1701341582320,383,Get Book,200,OK,StressTest 2-1,text,true,,4686,215,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books/2,383,0,0
+1701341580534,2194,Get All Books,200,OK,StressTest 2-2,text,true,,915956,213,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,643,0,258
+1701341582405,381,Get Book,200,OK,EnduranceTest 1-1,text,true,,6079,215,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books/1,381,0,0
+1701341580532,2315,Get All Books,200,OK,EnduranceTest 1-2,text,true,,902154,213,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,747,0,260
+1701341582702,264,Post Book,200,OK,StressTest 2-1,text,true,,262,363,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,264,0,0
+1701341582728,366,Get Book,200,OK,StressTest 2-2,text,true,,5687,215,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books/4,365,0,0
+1701341582786,309,Post Book,200,OK,EnduranceTest 1-1,text,true,,262,363,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,309,0,0
+1701341582847,376,Get Book,200,OK,EnduranceTest 1-2,text,true,,4112,215,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books/3,376,0,0
+1701341582967,266,PUT Book,200,OK,StressTest 2-1,text,true,,262,364,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books/3,266,0,0
+1701341583094,260,Post Book,200,OK,StressTest 2-2,text,true,,262,363,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,260,0,0
+1701341583096,260,PUT Book,200,OK,EnduranceTest 1-1,text,true,,262,364,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books/2,260,0,0
+1701341583223,265,Post Book,200,OK,EnduranceTest 1-2,text,true,,262,363,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books,265,0,0
+1701341583234,263,Delete Book,200,OK,StressTest 2-1,,true,,211,246,2,4,http://udacity-project3-appservice.azurewebsites.net/api/Books/2?id=3,263,0,0
+1701341583355,260,PUT Book,200,OK,StressTest 2-2,text,true,,262,364,1,3,http://udacity-project3-appservice.azurewebsites.net/api/Books/5,260,0,0
+1701341583356,266,Delete Book,200,OK,EnduranceTest 1-1,,true,,211,246,2,3,http://udacity-project3-appservice.azurewebsites.net/api/Books/1?id=2,266,0,0
+1701341583488,264,PUT Book,200,OK,EnduranceTest 1-2,text,true,,262,364,1,2,http://udacity-project3-appservice.azurewebsites.net/api/Books/4,264,0,0
+1701341583616,260,Delete Book,200,OK,StressTest 2-2,,true,,211,246,1,2,http://udacity-project3-appservice.azurewebsites.net/api/Books/4?id=5,260,0,0
+1701341583753,263,Delete Book,200,OK,EnduranceTest 1-2,,true,,211,246,1,1,http://udacity-project3-appservice.azurewebsites.net/api/Books/3?id=4,263,0,0
