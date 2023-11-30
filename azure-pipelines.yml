@@ -97,17 +97,17 @@ stages:
       pool:
           name: Default
       steps:
-    - task: ArchiveFiles@2
-      displayName: "Archive FakeRestAPI"
-      inputs:
-          rootFolderOrFile: "$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi"
-          includeRootFolder: false
-          archiveType: zip
-          archiveFile: "$(Build.ArtifactStagingDirectory)/fakerestapi.zip"
+      - task: ArchiveFiles@2
+        displayName: "Archive FakeRestAPI"
+        inputs:
+            rootFolderOrFile: "$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi"
+            includeRootFolder: false
+            archiveType: zip
+            archiveFile: "$(Build.ArtifactStagingDirectory)/fakerestapi.zip"
 
-    - publish: "$(Build.ArtifactStagingDirectory)/fakerestapi.zip"
-      displayName: Publish FakeRestAPI Archive
-      artifact: fakerestapi
+      - publish: "$(Build.ArtifactStagingDirectory)/fakerestapi.zip"
+        displayName: Publish FakeRestAPI Archive
+        artifact: fakerestapi
 
   #     - task: ArchiveFiles@2
   #       displayName: Archive Selenium
