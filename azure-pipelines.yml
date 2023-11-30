@@ -145,7 +145,7 @@ stages:
               displayName: 'Deploy Azure Web App'
               inputs:
                 azureSubscription: 'UdacityProject3'     # ToDo
-                appName: 'Uda-project3-windows'               # ToDo
+                appName: 'udacity-project3-AppService'               # ToDo
                 appType: webApp
                 package: $(Pipeline.Workspace)/fakerestapi/fakerestapi.zip
                 # #--------------------------------------------#    
