@@ -6,7 +6,7 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 trigger:
 - main
 
-pool: Default
+pool: UdaProject3
 
 variables:
   python.version: '3.7.6'
@@ -95,7 +95,7 @@ stages:
     jobs:
     - job: Build
       pool:
-          name: Default
+          name: UdaProject3
       steps:
       - task: ArchiveFiles@2
         displayName: "Archive FakeRestAPI"
@@ -135,7 +135,7 @@ stages:
     # Deploy FakeRestAPI Web App
     # ToDo: Provide <environment name> you created in your DevOps project
     - deployment: FakeRestAPI
-      pool: Default
+      pool: UdaProject3
       environment: $(environmentName)   # ToDo
       strategy:
         runOnce:
