@@ -109,20 +109,20 @@ stages:
         displayName: Publish FakeRestAPI Archive
         artifact: fakerestapi
 
-  #     - task: ArchiveFiles@2
-  #       displayName: Archive Selenium
-  #       inputs:
-  #         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-  #         includeRootFolder: false
-  #         archiveType: 'zip'
-  #         archiveFile: '$(Build.BuildId)-selenium.zip'
-  #         replaceExistingArchive: true
+      - task: ArchiveFiles@2
+        displayName: Archive Selenium
+        inputs:
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(Build.BuildId)-selenium.zip'
+          replaceExistingArchive: true
         
-  #     - task: PublishPipelineArtifact@1
-  #       displayName: Upload Selenium
-  #       inputs:
-  #        targetPath: $(Build.BuildId)-selenium.zip
-  #        artifact: drop-selenium
+      - task: PublishPipelineArtifact@1
+        displayName: Upload Selenium
+        inputs:
+         targetPath: $(Build.BuildId)-selenium.zip
+         artifact: drop-selenium
 
   # #--------------------------------------------#  
   # # DEPLOYMENT STAGE
@@ -148,15 +148,159 @@ stages:
                 appName: 'udacity-project3-AppService'               # ToDo
                 appType: webApp
                 package: $(Pipeline.Workspace)/fakerestapi/fakerestapi.zip
-                # #--------------------------------------------#    
-  #           # # Run JMeter test suite against the App Service
-  #           # - task: CmdLine@2
-  #           #   inputs:
-  #           #     script: |
-  #           #       wget "https://apache.mirrors.lucidnetworks.net//jmeter/binaries/apache-jmeter-5.2.1.tgz"
-  #           #       tar -xf apache-jmeter-5.2.1.tgz
-  #           #       unzip -o $(Build.BuildId)-perftests.zip
-  #           #       ./apache-jmeter-5.2.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
-  #           #       cat jmeter.log                                                                           # ToDo: Write your commands
-  #           #     workingDirectory: $(Pipeline.Workspace)/drop-api            # ToDo: Use the artifact name from the task above
-  
+
+#--------------------------------------------#
+  - stage: Test 
+    displayName: Test
+    jobs:
+    - job: TestPostman
+      pool: Default
+      steps:
+      # Postman - Install Newman    
+      # ToDo: Update the command and verify the working directory
+      - task: NodeTool@0
+        inputs:
+          versionSource: 'spec'
+          versionSpec: '16.x'
+      - task: CmdLine@2
+        displayName: Install Newman
+        inputs:
+          script: 'npm install newman -g'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+      # Postman Data Validation Test Suite    
+      # ToDo: Verify the working directory
+      - task: CmdLine@2
+        displayName: Run Data Validation Tests
+        continueOnError: true
+        inputs:
+          script: 'newman run Validation.postman_collection.json -e Uda-env.postman_environment.json --reporters cli,junit --reporter-junit-export TEST-DataValidation.xml'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+      # Postman Regression Test Suite    
+      # ToDo: Verify the working directory
+      - task: CmdLine@2
+        displayName: Run Regression Tests
+        continueOnError: true
+        inputs:
+          script: 'newman run Regression.postman_collection.json -e Uda-env.postman_environment.json --reporters cli,junit --reporter-junit-export TEST-Regression.xml'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+      # Postman - Publish Results 
+      # ToDo: Complete the task as explained here: https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml#yaml-snippet
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFormat: 'JUnit'
+          testResultsFiles: '**/TEST-*.xml'
+          searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'      # ToDo
+          mergeTestResults: true
+          testRunTitle: 'ReportTestWithPotman'      # ToDo   
+
+    #   #--------------------------------------------#  
+    #   # JMeter (Performance) Test Suite - Archive
+    #   # ToDo: Complete the ArchiveFiles@2 task and publish step 
+    - job: PerformmanceTest
+      dependsOn: TestPostman
+      pool: Default
+      steps:    
+      - task: Bash@3
+        displayName: 'Install JMeter'
+        inputs:
+          targetType: 'inline'
+          script: |
+            sudo apt-get install openjdk-11-jre-headless -y
+            sudo apt-get update
+            java -version
+            wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.2.tgz
+            
+      - task: ExtractFiles@1
+        inputs:
+          archiveFilePatterns: '**/*.tgz'
+          destinationFolder: '$(System.DefaultWorkingDirectory)'
+          cleanDestinationFolder: false
+          overwriteExistingFiles: true
+
+      - task: Bash@3
+        displayName: 'Install JMeter part 2'
+        inputs:
+          targetType: 'inline'
+          script: |
+            apache-jmeter-5.6.2/bin/jmeter --version
+            mkdir -p log/jmeter
+            pwd          
+            ls -la
+            ls '$(System.DefaultWorkingDirectory)'
+      - task: Bash@3
+        displayName: 'Stress Test jmeter'
+        inputs:
+          targetType: 'inline'
+          script: |
+            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Stress.jmx -l '$(System.DefaultWorkingDirectory)'/log/jmeter/stress-test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/log/jmeter/stress-test-html-report -j log/jmeter/jmeter-stress-test.log
+            cat log/jmeter/jmeter-stress-test.log
+            ls '$(System.DefaultWorkingDirectory)'
+            ls '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+      - task: Bash@3
+        displayName: 'Endurance Test jmeter'
+        inputs:
+          targetType: 'inline'
+          script: |
+            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Endurance.jmx -l '$(System.DefaultWorkingDirectory)'/log/jmeter/endurance-test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/log/jmeter/endurance-test-html-report -j log/jmeter/endurance-stress-test.log
+            cat log/jmeter/endurance-stress-test.log
+      - task: ArchiveFiles@2
+        displayName: 'Archive Stress Test result'
+        inputs:
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/stress-test-html-report'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/stress-test-html-report.zip'
+      - task: ArchiveFiles@2
+        displayName: 'Archive Endurance Test result'
+        inputs:
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report.zip'
+      # JMeter Test Suite - Publish 
+      - task: PublishPipelineArtifact@1
+        displayName: 'Upload jmeter log package'
+        inputs:
+          targetPath: '$(System.DefaultWorkingDirectory)/log/jmeter'
+          artifact: 'drop-jmeter'
+
+    - deployment: SeleniumTest
+      displayName: 'UI Test'
+      dependsOn: PerformmanceTest
+      environment: 
+        name: 'myLinux'
+        resourceType: VirtualMachine
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: Bash@3
+                displayName: 'Bash Test'
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    #!/bin/bash
+                    sudo apt-get upgrade -y
+                    sudo apt-get install python3-pip -y
+                    sudo apt-get install unzip -y
+                    sudo apt-get install -y chromium-browser
+                    sudo apt install chromium-chromedriver
+                    pip3 install selenium                  
+                    chrominum-browser -version
+                    chromedriver --version
+                    pip3 install --upgrade requests
+                    cd $(Pipeline.Workspace)/drop-uitests
+                    unzip -o $(Build.BuildId)-uitests.zip
+                    sudo mkdir -p /var/log/selenium
+                    sudo chmod 664 /var/log/selenium
+                    python3 login.py > ui-logs.log
+                    python3 login.py
+                    sudo mv ui-logs.log /var/log/selenium
+                    cd $(System.DefaultWorkingDirectory)
+                    mkdir -p log/selenium
+                    sudo cp /var/log/selenium/ui-logs.log log/selenium
+              - task: PublishPipelineArtifact@1
+                displayName: 'Upload jmeter log package'
+                inputs:
+                  targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/ui-logs.log'
+                  artifact: 'drop-selenium-logs'
