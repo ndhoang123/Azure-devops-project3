@@ -144,7 +144,7 @@ stages:
             - task: AzureWebApp@1
               displayName: 'Deploy Azure Web App'
               inputs:
-                azureSubscription: $(azureServiceConnectionId)     # ToDo
+                azureSubscription: 'UdacityProject3'     # ToDo
                 appName: 'Uda-project3-windows'               # ToDo
                 appType: webApp
                 package: $(Pipeline.Workspace)/fakerestapi/fakerestapi.zip
