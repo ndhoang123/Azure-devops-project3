@@ -15,7 +15,7 @@ variables:
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
   # Environment name
-  environmentName: 'myLinux'
+  environmentName: 'UdaProject3'
   group: 'ssh-configuration'
   buildConfiguration: 'Release'
 
@@ -268,7 +268,7 @@ stages:
       displayName: 'UI Test'
       dependsOn: PerformmanceTest
       environment: 
-        name: 'myLinux'
+        name: 'UdaProject3'
         resourceType: VirtualMachine
       strategy:
         runOnce:
