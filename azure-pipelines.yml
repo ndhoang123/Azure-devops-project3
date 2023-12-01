@@ -233,7 +233,7 @@ stages:
           targetType: 'inline'
           script: |
             '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Stress.jmx -l '$(System.DefaultWorkingDirectory)'/jmeterOutput/Stress-test.csv -e -f -o '$(System.DefaultWorkingDirectory)'/jmeterOutput/stress-test-html-report -j jmeterOutput/jmeter-stress-test.log
-            cat jmeterOutput/stress-test-html-report/jmeter-stress-test.log
+            cat jmeterOutput/jmeter-stress-test.log
             ls '$(System.DefaultWorkingDirectory)'
             ls '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
       - task: Bash@3
@@ -242,7 +242,7 @@ stages:
           targetType: 'inline'
           script: |
             '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Endurance.jmx -l '$(System.DefaultWorkingDirectory)'/jmeterOutput/endurance-test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/jmeterOutput/endurance-test-html-report -j jmeterOutput/endurance-stress-test.log
-            cat log/jmeter/endurance-stress-test.log
+            cat jmeterOutput/endurance-stress-test.log
       - task: ArchiveFiles@2
         displayName: 'Archive Stress Test result'
         inputs:
