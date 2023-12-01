@@ -241,7 +241,7 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Endurance.jmx -l '$(System.DefaultWorkingDirectory)'/jmeterOutput/endurance-test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/jmeterOutput/endurance-test-html-report -j jmeterOutput/endurance-stress-test.log
+            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Endurance.jmx -l '$(System.DefaultWorkingDirectory)'/jmeterOutput/test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/jmeterOutput/endurance-test-html-report -j jmeterOutput/endurance-stress-test.log
             cat jmeterOutput/endurance-stress-test.log
       - task: ArchiveFiles@2
         displayName: 'Archive Stress Test result'
@@ -285,12 +285,14 @@ stages:
                     sudo apt-get install unzip -y
                     sudo apt-get install -y chromium-browser
                     sudo apt install chromium-chromedriver
-                    pip3 install selenium                  
+                    pip3 install selenium                 
+                     
                     chrominum-browser -version
                     chromedriver --version
                     pip3 install --upgrade requests
-                    cd $(Pipeline.Workspace)/drop-uitests
-                    unzip -o $(Build.BuildId)-uitests.zip
+                    
+                    cd $(Pipeline.Workspace)/drop-selenium
+                    unzip -o $(Build.BuildId)-selenium.zip
                     sudo mkdir -p /var/log/selenium
                     sudo chmod 664 /var/log/selenium
                     python3 login.py > ui-logs.log
