@@ -232,8 +232,8 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Stress.jmx -l '$(System.DefaultWorkingDirectory)'/log/jmeter/stress-test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/log/jmeter/stress-test-html-report -j log/jmeter/jmeter-stress-test.log
-            cat log/jmeter/jmeter-stress-test.log
+            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Stress.jmx -l '$(System.DefaultWorkingDirectory)'/jmeterOutput/Stress-test.csv -e -f -o '$(System.DefaultWorkingDirectory)'/jmeterOutput/stress-test-html-report -j jmeterOutput/jmeter-stress-test.log
+            cat jmeterOutput/stress-test-html-report/jmeter-stress-test.log
             ls '$(System.DefaultWorkingDirectory)'
             ls '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
       - task: Bash@3
@@ -241,27 +241,27 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Endurance.jmx -l '$(System.DefaultWorkingDirectory)'/log/jmeter/endurance-test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/log/jmeter/endurance-test-html-report -j log/jmeter/endurance-stress-test.log
+            '$(System.DefaultWorkingDirectory)'/apache-jmeter-5.6.2/bin/jmeter -n -t '$(System.DefaultWorkingDirectory)'/automatedtesting/jmeter/Endurance.jmx -l '$(System.DefaultWorkingDirectory)'/jmeterOutput/endurance-test-result.csv -e -f -o '$(System.DefaultWorkingDirectory)'/jmeterOutput/endurance-test-html-report -j jmeterOutput/endurance-stress-test.log
             cat log/jmeter/endurance-stress-test.log
       - task: ArchiveFiles@2
         displayName: 'Archive Stress Test result'
         inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/stress-test-html-report'
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/jmeterOutput/endurance-test-html-report'
           includeRootFolder: false
           archiveType: 'zip'
-          archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/stress-test-html-report.zip'
+          archiveFile: '$(System.DefaultWorkingDirectory)/jmeterOutput/stress-test-html-report.zip'
       - task: ArchiveFiles@2
         displayName: 'Archive Endurance Test result'
         inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report'
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/jmeterOutput/endurance-test-html-report'
           includeRootFolder: false
           archiveType: 'zip'
-          archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report.zip'
+          archiveFile: '$(System.DefaultWorkingDirectory)/jmeterOutput/endurance-test-html-report.zip'
       # JMeter Test Suite - Publish 
       - task: PublishPipelineArtifact@1
         displayName: 'Upload jmeter log package'
         inputs:
-          targetPath: '$(System.DefaultWorkingDirectory)/log/jmeter'
+          targetPath: '$(System.DefaultWorkingDirectory)/jmeterOutput'
           artifact: 'drop-jmeter'
 
     - deployment: SeleniumTest
