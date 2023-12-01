@@ -300,8 +300,12 @@ stages:
                     else
                       wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip
                     fi
+                    echo "Place"
+                    pwd
+                    echo "list out"
+                    ls
                     # install chrome driver
-                    unzip chromedriver_linux64.zip
+                    unzip chromedriver-linux64.zip
                     sudo mv chromedriver /usr/bin/chromedriver
                     sudo chown root:root /usr/bin/chromedriver
                     sudo chmod +x /usr/bin/chromedriver

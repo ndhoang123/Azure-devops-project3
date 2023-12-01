@@ -436,7 +436,7 @@
       </Arguments>
       <hashTree/>
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Obj book CSV" enabled="true">
-        <stringProp name="filename">D:/Code/Udacity/Azure-Project3/Azure-project3/Azure-devops-project3/automatedtesting/jmeter/detail_ids.csv</stringProp>
+        <stringProp name="filename">/home/myproject3/myagent/_work/1/s/automatedtesting/jmeter/detail_ids.csv</stringProp>
         <stringProp name="fileEncoding"></stringProp>
         <stringProp name="variableNames">ID,Title,Description,PageCount,Excerpt,PublishDate</stringProp>
         <boolProp name="ignoreFirstLine">true</boolProp>
@@ -448,7 +448,7 @@
       </CSVDataSet>
       <hashTree/>
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Book IDs CSV" enabled="true">
-        <stringProp name="filename">D:/Code/Udacity/Azure-Project3/Azure-project3/Azure-devops-project3/automatedtesting/jmeter/book_ids.csv</stringProp>
+        <stringProp name="filename">/home/myproject3/myagent/_work/1/s/automatedtesting/jmeter/book_ids.csv</stringProp>
         <stringProp name="fileEncoding">UTF-8</stringProp>
         <stringProp name="variableNames">id</stringProp>
         <boolProp name="ignoreFirstLine">false</boolProp>
