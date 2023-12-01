@@ -301,7 +301,9 @@ stages:
                     sudo mv chromedriver /usr/bin/chromedriver
                     sudo chown root:root /usr/bin/chromedriver
                     sudo chmod +x /usr/bin/chromedriver
+                    export PATH=$PATH:/usr/bin/chromedriver
                     chromium-browser -version
+                    echo "chrome driver"
                     chromedriver --version
                   
                     cd $(Pipeline.Workspace)/drop-selenium
