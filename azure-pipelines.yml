@@ -298,7 +298,7 @@ stages:
                     if [ -f "$FILE" ]; then
                       rm chromedriver_linux64.zip
                     else
-                      wget https://chromedriver.storage.googleapis.com/119.0.6045.105/chromedriver_linux64.zip
+                      wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip
                     fi
                     # install chrome driver
                     unzip chromedriver_linux64.zip
