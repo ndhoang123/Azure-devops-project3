@@ -71,6 +71,13 @@ stages:
         inputs:
           secureFile: 'terraform.tfvars'
       
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
+        displayName: Terraform plan
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+          environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
           
       # Run Terraform Apply
       # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV3@3
@@ -287,9 +294,15 @@ stages:
                     sudo apt install chromium-chromedriver
                     pip3 install selenium
 
+                    # download chrome driver
+                    wget https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+                    # install chrome driver
+                    unzip chromedriver_linux64.zip
+                    sudo mv chromedriver /usr/bin/chromedriver
+                    sudo chown root:root /usr/bin/chromedriver
+                    sudo chmod +x /usr/bin/chromedriver
                     chromium-browser -version
                     chromedriver --version
-                    pip3 install --upgrade requests        
                   
                     cd $(Pipeline.Workspace)/drop-selenium
                     unzip -o $(Build.BuildId)-selenium.zip
