@@ -298,7 +298,7 @@ stages:
                     sudo chown root:root /usr/bin/chromedriver
                     sudo chmod +x /usr/bin/chromedriver        
                     
-                    chrominum-browser -version
+                    chromium-browser -version
                     chromedriver --version
                     pip3 install --upgrade requests
 
