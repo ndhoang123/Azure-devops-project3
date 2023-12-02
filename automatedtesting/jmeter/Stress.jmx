@@ -425,7 +425,7 @@
           <elementProp name="hostname" elementType="Argument">
             <stringProp name="Argument.name">hostname</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.value">udacity-project3-appservice.azurewebsites.net</stringProp>
+            <stringProp name="Argument.value">udacity-project3-appService-dup.azurewebsites.net</stringProp>
           </elementProp>
           <elementProp name="protocol" elementType="Argument">
             <stringProp name="Argument.name">protocol</stringProp>
