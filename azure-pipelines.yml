@@ -6,7 +6,7 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 trigger:
 - main
 
-pool: UdaProject3
+pool: MyLinux
 
 variables:
   python.version: '3.7.6'
@@ -15,7 +15,7 @@ variables:
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
   # Environment name
-  environmentName: 'UdaProject3'
+  environmentName: 'Project3'
   group: 'ssh-configuration'
   buildConfiguration: 'Release'
 
@@ -102,7 +102,7 @@ stages:
     jobs:
     - job: Build
       pool:
-          name: UdaProject3
+          name: MyLinux
       steps:
       - task: ArchiveFiles@2
         displayName: "Archive FakeRestAPI"
@@ -142,7 +142,7 @@ stages:
     # Deploy FakeRestAPI Web App
     # ToDo: Provide <environment name> you created in your DevOps project
     - deployment: FakeRestAPI
-      pool: UdaProject3
+      pool: MyLinux
       environment: $(environmentName)   # ToDo
       strategy:
         runOnce:
@@ -161,7 +161,7 @@ stages:
     displayName: Test
     jobs:
     - job: TestPostman
-      pool: UdaProject3
+      pool: MyLinux
       steps:
       # Postman - Install Newman    
       # ToDo: Update the command and verify the working directory
@@ -205,7 +205,7 @@ stages:
     #   # ToDo: Complete the ArchiveFiles@2 task and publish step 
     - job: PerformmanceTest
       dependsOn: TestPostman
-      pool: UdaProject3
+      pool: MyLinux
       steps:    
       - task: Bash@3
         displayName: 'Install JMeter'
@@ -275,7 +275,7 @@ stages:
       displayName: 'UI Test'
       dependsOn: PerformmanceTest
       environment: 
-        name: 'UdaProject3'
+        name: 'Project3'
         resourceType: VirtualMachine
       strategy:
         runOnce:

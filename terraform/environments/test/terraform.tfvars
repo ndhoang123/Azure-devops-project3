@@ -5,8 +5,8 @@ client_secret = "Mpt8Q~G_KmRQcvOu~obKINW4x3bjKqm.UUgo2bgj"
 tenant_id = "c577bdde-b398-4775-9579-3becc5d82902"
 
 # Resource Group/Location
-location = "East US 2"
-resource_group = "Udacity-rg-1221"
+location = "East US"
+resource_group = "Udacity-rg"
 application_type = "udacity-project3-AppService-Dup"
 
 # Network
