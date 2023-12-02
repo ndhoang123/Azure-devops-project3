@@ -6,7 +6,7 @@ tenant_id = "c577bdde-b398-4775-9579-3becc5d82902"
 
 # Resource Group/Location
 location = "East US"
-resource_group = "Udacity-rg-122"
+resource_group = "Udacity-rg-1221"
 application_type = "udacity-project3-AppService-Dup"
 
 # Network
